@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Nav from './views/Nav';
 import { useState } from 'react';
+import Todo from './views/Todo';
 
 const App = () => {
   let [name, setName] = useState('Thold');
@@ -23,6 +24,12 @@ const App = () => {
 
   }
 
+  const handleEventKeyDown = (event) => {
+    if (event.key === 'Enter' || event.keyCode === 13) {
+      handleEventClick(event);
+    }
+  }
+
   const handleOnChangeInput = (event) => {
     setAddress(event.target.value)
   }
@@ -33,14 +40,11 @@ const App = () => {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <h1>Todos app with {name} !</h1>
-        <div className='todos-container'>
-          {todos.map(todo => {
-            return (
-              <li className='todo-child' key={todo.id}>{todo.title}</li>
-            )
-          })}
-        </div>
-        <input type='text' value={address} onChange={(event) => handleOnChangeInput(event)} />
+        <Todo
+          myData={todos}
+          title='All todos'
+        />
+        <input type='text' value={address} onKeyDown={handleEventKeyDown} onChange={(event) => handleOnChangeInput(event)} />
         <button type='button' onClick={(event) => { handleEventClick(event) }}>Click me!</button>
       </header>
     </div>
