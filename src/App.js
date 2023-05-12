@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Nav from './views/Nav';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Todo from './views/Todo';
 
 const App = () => {
@@ -13,6 +13,15 @@ const App = () => {
     { id: 'todo3', title: 'playing game', type: 'Thomas' },
     { id: 'todo4', title: 'listen music', type: 'Edison' },
   ]);
+
+  //didmount
+  useEffect(() => {
+    console.log('run use effect')
+  }, [address, todos])
+
+  // useEffect(() => {
+  //   console.log('run use effect')
+  // }, [todos])
 
   const handleEventClick = (event) => {
     if (!address) {

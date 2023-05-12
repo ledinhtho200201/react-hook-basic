@@ -16,7 +16,6 @@ const Todo = (props) => {
                         <li className='todo-child' >{todo.title}
                             &nbsp; &nbsp;   <span onClick={() => handleDelete(todo.id)}>x</span>
                         </li>
-
                     </div>
                 )
             })}
