@@ -11,7 +11,7 @@ const App = () => {
     { id: 'todo1', title: 'watching video', type: 'Thomas' },
     { id: 'todo2', title: 'reading book', type: 'Edison' },
     { id: 'todo3', title: 'playing game', type: 'Thomas' },
-    { id: 'todo3', title: 'listen music', type: 'Edison' },
+    { id: 'todo4', title: 'listen music', type: 'Edison' },
   ]);
 
   const handleEventClick = (event) => {
@@ -19,7 +19,10 @@ const App = () => {
       alert('empty input');
       return;
     }
-    let newTodo = { id: 'abc', title: address }
+    let newTodo = {
+      id: Math.floor(Math.random() * 1000) + 1,
+      title: address
+    }
     setTodos([...todos, newTodo])
     setAddress('')
 
@@ -35,6 +38,12 @@ const App = () => {
     setAddress(event.target.value)
   }
 
+  const deleteDataTodo = (id) => {
+    let currentTodos = todos;
+    currentTodos = currentTodos.filter(item => item.id !== id)
+    setTodos(currentTodos)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -44,10 +53,12 @@ const App = () => {
         <Todo
           myData={todos}
           title='All todos'
+          deleteDataTodo={deleteDataTodo}
         />
         <Todo
           myData={todos.filter(todo => todo.type === 'Thomas')}
           title='Thomas todos'
+          deleteDataTodo={deleteDataTodo}
         />
         <input type='text' value={address} onKeyDown={handleEventKeyDown} onChange={(event) => handleOnChangeInput(event)} />
         <button type='button' onClick={(event) => { handleEventClick(event) }}>Click me!</button>
