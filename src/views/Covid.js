@@ -1,21 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import useFetch from "../customize/fetch";
 
 const Covid = () => {
-    const [dataFood, setDataFood] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    //componentDidMount
-    useEffect(async () => {
-        setTimeout(async () => {
-            let res = await axios.get('https://private-anon-7bc3d81422-pizzaapp.apiary-mock.com/restaurants/restaurantId/menu?category=Pizza&orderBy=rank')
-            let data = res && res.data ? res.data : [];
-            setDataFood(data);
-            setLoading(false);
-        }, 3000)
-
-
-    }, []);
+    const { data: dataFood, isLoading, isError } = useFetch('https://private-anon-7bc3d81422-pizzaapp.apiary-mock.com/restaurants/restaurantId/menu?category=Pizza&orderBy=rank')
 
     return (
         <table>
@@ -29,7 +16,7 @@ const Covid = () => {
                 </tr>
             </thead>
             <tbody>
-                {!loading && dataFood && dataFood.length > 0 && dataFood.map(item => {
+                {!isError && !isLoading && dataFood && dataFood.length > 0 && dataFood.map(item => {
                     return (
                         <tr key={item.id}>
                             <td>{item.category}</td>
@@ -40,9 +27,15 @@ const Covid = () => {
                     )
                 })}
 
-                {loading &&
+                {isLoading &&
                     <tr>
                         <td colSpan='5' style={{ 'textAlign': 'center' }}>Loading ... </td>
+                    </tr>
+                }
+
+                {isError &&
+                    <tr>
+                        <td colSpan='5' style={{ 'textAlign': 'center' }}>Something wrong ... </td>
                     </tr>
                 }
             </tbody>
