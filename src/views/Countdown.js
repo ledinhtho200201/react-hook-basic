@@ -5,6 +5,12 @@ class CountDown extends React.Component {
         count: 5
     }
 
+    componentWillUnmount() {
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+    }
+
     componentDidMount() {
         this.timer = setInterval(() => {
             this.setState({
@@ -21,8 +27,6 @@ class CountDown extends React.Component {
             }
         }
     }
-
-
 
     render() {
         return (
