@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react';
 import Todo from './views/Todo';
 import Covid from './views/Covid';
 import { CountDown, NewCountDown } from './views/Countdown';
-
+import Blog from './views/Blog';
+import DetailBlog from './views/DetailBlog';
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,7 +26,7 @@ const App = () => {
 
   //didmount
   useEffect(() => {
-    console.log('run use effect')
+    // console.log('run use effect')
   }, [address, todos])
 
   // useEffect(() => {
@@ -100,6 +101,12 @@ const App = () => {
             />
             <input type='text' value={address} onKeyDown={handleEventKeyDown} onChange={(event) => handleOnChangeInput(event)} />
             <button type='button' onClick={(event) => { handleEventClick(event) }}>Click me!</button>
+          </Route>
+          <Route path="/blog" exact>
+            <Blog />
+          </Route>
+          <Route path="/blog/:id">
+            <DetailBlog />
           </Route>
           <Route path="/secret">
             {/* <Dashboard /> */}
